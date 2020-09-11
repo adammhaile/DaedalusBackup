@@ -1,0 +1,67 @@
+G90                                          ; send absolute coordinates...
+M83                                          ; ...but relative extruder moves
+M550 P"Daedalus"                             ; set printer name
+M669 K1                                      ; select CoreXY mode
+
+; Drives
+M569 P0.0 S1                                 ; physical drive 0.0 goes forwards
+M569 P0.1 S1                                 ; physical drive 0.1 goes forwards
+M569 P0.2 S1                                 ; physical drive 0.2 goes forwards
+M569 P0.3 S1                                 ; physical drive 0.3 goes forwards
+M569 P0.4 S1                                 ; physical drive 0.4 goes forwards
+M569 P0.5 S1                                 ; physical drive 0.5 goes forwards
+M584 X0.0 Y0.1 Z0.2:0.3:0.4 E0.5             ; set drive mapping
+M671 X-38:-38:340  Y62.5:247.5:139 S7.5      ; Define positions of Z leadscrews
+M350 X16 Y16 Z16 E16 I1                      ; configure microstepping with interpolation
+M92 X200.00 Y200.00 Z800.00 E830             ; set steps per mm
+M566 X1000.00 Y1000.00 Z100.00 E1500.00      ; set maximum instantaneous speed changes (mm/min)
+M203 X24000.00 Y24000.00 Z900.00 E3600.00    ; set maximum speeds (mm/min)
+M201 X2000.00 Y2000.00 Z100.00 E1500.00      ; set accelerations (mm/s^2)
+M906 X1400 Y1400 Z1200 E1500 I80             ; set motor currents (mA) and motor idle factor in per cent
+M84 S30                                      ; Set idle timeout
+
+; Axis Limits
+M208 X0 Y0 Z0 S1                             ; set axis minima
+M208 X310 Y300 Z345 S0                       ; set axis maxima
+
+; Endstops
+M574 X1 S1! P"io3.in"                        ; configure active-high endstop for high end on X via pin io3.in
+M574 Y2 S1! P"io1.in"                        ; configure active-high endstop for low end on Y via pin io1.in
+
+; Z-Probe
+M558 P5 C"!io7.in" I0 H10 F180 T6000         ; set Z probe type to switch and the dive height + speeds
+G31 X-10 Y66 Z0.7 P25                        ; set Z probe trigger value, offset and trigger height
+M557 X67:251 Y67:251 S92                     ; define mesh grid
+
+; Heaters
+M308 S0 P"temp0" Y"thermistor" T100000 B4138 ; configure sensor 0 as thermistor on pin temp0
+M950 H0 C"out0" T0                           ; create bed heater output on out0 and map it to sensor 0
+M307 H0 B0 S1.00                             ; disable bang-bang mode for the bed heater and set PWM limit
+M140 H0                                      ; map heated bed to heater 0
+M143 H0 S120                                 ; set temperature limit for heater 0 to 120C
+M308 S1 P"temp1" Y"thermistor" T100000 B4138 ; configure sensor 1 as thermistor on pin temp1
+M950 H1 C"out1" T1                           ; create nozzle heater output on out1 and map it to sensor 1
+M307 H1 B0 S1.00                             ; disable bang-bang mode for heater  and set PWM limit
+
+; Fans
+M950 F0 C"out4"                              ; create fan 0 on pin out4 and set its frequency
+M106 P0 S255 H1 T45                          ; set fan 0 value. Thermostatic control is turned on
+M950 F1 C"out5" Q500                         ; create fan 1 on pin out5 and set its frequency
+M106 P1 S1 H-1                               ; set fan 1 value. Thermostatic control is turned off
+M950 F2 C"out6" Q500                         ; create fan 2 on pin out6 and set its frequency
+M106 P2 S1 H-1                               ; set fan 2 value. Thermostatic control is turned off
+
+; Tools
+M563 P0 D0 H1 F1:2                         ; define tool 0
+G10 P0 X0 Y0 Z0                              ; set tool 0 axis offsets
+G10 P0 R0 S0                                 ; set initial tool 0 active and standby temperatures to 0C
+
+; Custom settings are not defined
+
+;G29 S1                                       ; load mesh level
+
+; Miscellaneous
+M575 P1 S1 B57600                            ; enable support for PanelDue
+M501                                         ; load saved parameters from non-volatile memory
+T0                                           ; select first tool
+
