@@ -17,7 +17,7 @@ M92 X200.00 Y200.00 Z800.00 E830             ; set steps per mm
 M566 X1000.00 Y1000.00 Z100.00 E1500.00      ; set maximum instantaneous speed changes (mm/min)
 M203 X24000.00 Y24000.00 Z900.00 E3600.00    ; set maximum speeds (mm/min)
 M201 X2000.00 Y2000.00 Z100.00 E1500.00      ; set accelerations (mm/s^2)
-M906 X1400 Y1400 Z1200 E1500 I80             ; set motor currents (mA) and motor idle factor in per cent
+M906 X1600 Y1600 Z1200 E1500 I80             ; set motor currents (mA) and motor idle factor in per cent
 M84 S30                                      ; Set idle timeout
 
 ; Axis Limits
@@ -30,7 +30,7 @@ M574 Y2 S1! P"io1.in"                        ; configure active-high endstop for
 
 ; Z-Probe
 M558 P5 C"!io7.in" I0 H10 F180 T6000         ; set Z probe type to switch and the dive height + speeds
-G31 X-10 Y66 Z0.7 P25                        ; set Z probe trigger value, offset and trigger height
+G31 X-10 Y66 Z0.9 P25                        ; set Z probe trigger value, offset and trigger height
 M557 X67:251 Y67:251 S92                     ; define mesh grid
 
 ; Heaters
@@ -52,7 +52,7 @@ M950 F2 C"out6" Q500                         ; create fan 2 on pin out6 and set 
 M106 P2 S1 H-1                               ; set fan 2 value. Thermostatic control is turned off
 
 ; Tools
-M563 P0 D0 H1 F1:2                         ; define tool 0
+M563 P0 D0 H1 F1:2                         	 ; define tool 0
 G10 P0 X0 Y0 Z0                              ; set tool 0 axis offsets
 G10 P0 R0 S0                                 ; set initial tool 0 active and standby temperatures to 0C
 
