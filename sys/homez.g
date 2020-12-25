@@ -1,5 +1,5 @@
 G91 G1 Z5 F800 H2 ; lift z so we don't crash
-G90 G1 X150 Y150 F6000 ; Move to the center of the bed
+G90 G1 X165 Y94 F6000 ; Move to the center of the bed
 ; M558  Fxxx sets the probing speed.
 ; Probe rapidly to get us in the right ballpark.
 ; This brings the bed up quickly but may be less accurate.
