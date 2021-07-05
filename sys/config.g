@@ -66,7 +66,7 @@ G10 P0 S0 R0                        		;Set tool 0 operating and standby temperat
 
 ;EZ ABL 
 M558 P5 C"!io7.in" I0 H10 F180 T3600 ; set Z probe type to EZ ABL and the dive height + speeds
-G31 X-9.25 Y63 Z1.0 P25		;Z offset can be adjusted here 
+G31 X-9.25 Y63 Z1.70 P25		;Z offset can be adjusted here 
 
 M575 P1 S1 B57600
 
