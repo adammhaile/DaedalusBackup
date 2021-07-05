@@ -20,13 +20,13 @@ M584 X0 Y1 Z2:3:4 E5			; Map X to drive 0 Y to drive 1, Z to drives 2, 3, 4, and
 M671 X-24:-24:325  Y32:287:159 S7.5			;X -38, -38, 340
 
 M350 X16 Y16 Z16 E16 I1				;set 16x microstepping for axes with interpolation
-M906 X1600 Y1600 Z1200 E1500 I60			;Set motor currents (mA)
+M906 X1600 Y1600 Z1200 E1100 I60			;Set motor currents (mA)
 M201 X2000 Y2000 Z100 E1500			;Accelerations (mm/s^2)
 M203 X24000 Y24000 Z900 E3600			;Maximum speeds (mm/min) was Z1800 tr8*4
 M566 X1000 Y1000 Z100 E1500			;Maximum jerk speeds mm/minute E60 Z60
-M208 X310 Y300 Z345				;set axis maxima and high homing switch positions (adjust to suit your machine)
+M208 X300 Y300 Z345				;set axis maxima and high homing switch positions (adjust to suit your machine)
 M208 X0 Y0 Z-2 S1				;set axis minima and low homing switch positions (adjust to make X=0 and Y=0 the edges of the bed)
-M92 X200 Y200 Z800 E830			;steps/mm 0.9 z
+M92 X200 Y200 Z800 E409			;steps/mm 0.9 z
 
 
 ; End Stops
@@ -66,7 +66,8 @@ G10 P0 S0 R0                        		;Set tool 0 operating and standby temperat
 
 ;EZ ABL 
 M558 P5 C"!io7.in" I0 H10 F180 T3600 ; set Z probe type to EZ ABL and the dive height + speeds
-G31 X-9.25 Y63 Z1.70 P25		;Z offset can be adjusted here 
+;G31 X-9.25 Y63 Z1.70 P25		;Z offset can be adjusted here 
+G31 X8.75 Y62.45 Z2.9 P25		;Z offset can be adjusted here 
 
 M575 P1 S1 B57600
 
